@@ -1,0 +1,37 @@
+'''Домашнее задание по теме "Сложные моменты и исключения в стеке вызовов функции"'''
+
+def personal_sum(numbers):
+    result = 0
+    incorrect_data = 0
+    
+    for number in numbers:
+        try:
+            result += number
+        except TypeError:
+            incorrect_data += 1
+            
+    return result, incorrect_data
+
+def calculate_average(numbers):
+    try:
+        if not isinstance(numbers, (list, tuple)):  
+            raise TypeError("В numbers записан некорректный тип данных")
+        
+        total_sum, incorrect_data = personal_sum(numbers)
+        
+       
+        if len(numbers) - incorrect_data == 0:
+            return 0
+        
+        average = total_sum / (len(numbers) - incorrect_data)
+        return average
+    
+    except TypeError as e:
+        print(e)
+        return None
+
+
+print(personal_sum([1, 2, 'a', 3]))  # (6, 1)
+print(calculate_average([1, 2, 'b', 3])) 
+print(calculate_average([]))  # 0
+print(calculate_average([1, 2, 3]))  # 2.0
